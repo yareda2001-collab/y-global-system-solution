@@ -19,6 +19,22 @@ html {
   flex: 1;
 }
 
+.user-dashboard-page .navmenu ul li .logout-btn {
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 5px;
+  background-color: red;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.user-dashboard-page .navmenu ul li .logout-btn:hover {
+  background-color: #cc0000;
+}
+
 .user-dashboard-page .user-section {
   padding: clamp(1.25rem, 4vw, 3.5rem) 1rem;
   background: transparent;

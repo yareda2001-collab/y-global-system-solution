@@ -30,8 +30,8 @@ $conn->close();
   <link rel="apple-touch-icon" href="assets/img/pwa-192.png?v=4">
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval';
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net;
     font-src 'self' https://fonts.gstatic.com data:;
     img-src 'self' data: images/*;
     connect-src 'self'
@@ -54,7 +54,7 @@ $conn->close();
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css?v=public-header-36" rel="stylesheet">
@@ -225,17 +225,20 @@ $conn->close();
 
     .portfolio-item .swiper-slide {
       display: flex;
+      width: 100%;
+      height: 100%;
+      flex-shrink: 0;
       justify-content: center;
       align-items: center;
-      background: #000;
+      background: #f8fafc;
     }
 
     .portfolio-item .swiper-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: contain;
+      object-position: center;
       border-radius: 10px;
       transition: transform 0.3s ease;
     }
@@ -540,15 +543,22 @@ $conn->close();
                 ?>
                 <div class="swiper">
                   <div class="swiper-wrapper">
-                    <?php foreach ($images as $image): ?>
+                    <?php foreach (array_filter(array_map('trim', $images)) as $image): ?>
                       <div class="swiper-slide">
-                        <img src="admin/<?php echo htmlspecialchars($image); ?>" alt="Portfolio Image" loading="lazy">
+                        <?php
+                        $imagePath = ltrim(str_replace('\\', '/', trim($image)), '/');
+                        $imagePath = preg_replace('#^(?:\./)?admin/#i', '', $imagePath);
+                        $imageUrl = 'admin/' . implode('/', array_map('rawurlencode', explode('/', $imagePath)));
+                        ?>
+                        <img src="<?php echo htmlspecialchars($imageUrl); ?>" alt="Portfolio Image" loading="lazy">
                       </div>
                     <?php endforeach; ?>
                   </div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-pagination"></div>
+                  <?php if (count(array_filter(array_map('trim', $images))) > 1): ?>
+                    <div class="swiper-button-prev" aria-label="Previous image"></div>
+                    <div class="swiper-button-next" aria-label="Next image"></div>
+                    <div class="swiper-pagination"></div>
+                  <?php endif; ?>
                 </div>
               <?php else: ?>
                 <p>No images available for this project.</p>
@@ -579,7 +589,7 @@ $conn->close();
   <script src="assets/vendor/aos/aos.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
@@ -592,23 +602,30 @@ $conn->close();
 
     // Initialize Swiper for each portfolio item
     document.querySelectorAll('.portfolio-item .swiper').forEach(swiperContainer => {
-      new Swiper(swiperContainer, {
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false,
-        },
+      const slideCount = swiperContainer.querySelectorAll('.swiper-slide').length;
+      const options = {
+        loop: slideCount > 1,
+        watchOverflow: true,
         slidesPerView: 1,
         spaceBetween: 10,
-      });
+      };
+
+      if (slideCount > 1) {
+        options.pagination = {
+          el: swiperContainer.querySelector('.swiper-pagination'),
+          clickable: true,
+        };
+        options.navigation = {
+          nextEl: swiperContainer.querySelector('.swiper-button-next'),
+          prevEl: swiperContainer.querySelector('.swiper-button-prev'),
+        };
+        options.autoplay = {
+          delay: 3000,
+          disableOnInteraction: false,
+        };
+      }
+
+      new Swiper(swiperContainer, options);
     });
 
     // Portfolio Search Functionality

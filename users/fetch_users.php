@@ -22,8 +22,11 @@ $user_id = (int)$_SESSION['user_id'];
 error_log("fetch_users.php: Fetching users for user_id: $user_id");
 
 try {
-    // Fetch all active users except the logged-in user
-    $sql = "SELECT id, username, role FROM users WHERE id != ? AND status = 1";
+    // Include active accounts whether production stores status as a flag or label.
+    $sql = "SELECT id, username, role
+            FROM users
+            WHERE id != ?
+              AND LOWER(CAST(status AS CHAR)) IN ('1', 'active', 'enabled')";
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         error_log('fetch_users.php: Prepare failed: ' . $conn->error);

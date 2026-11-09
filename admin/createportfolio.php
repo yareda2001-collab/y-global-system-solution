@@ -55,9 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message_type = 'error';
     } else {
         // Handle file uploads
-        $targetDir = "images/";
+        $targetDir = __DIR__ . '/images/';
         if (!is_dir($targetDir)) {
-            mkdir($targetDir, 0755, true);
+            if (!mkdir($targetDir, 0755, true) && !is_dir($targetDir)) {
+                throw new RuntimeException("Unable to create the portfolio image directory.");
+            }
         }
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         $max_size = 10 * 1024 * 1024; // 10MB
@@ -85,14 +87,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 break;
             }
             $imageName = basename($name);
-            $targetFile = $targetDir . time() . '_' . $imageName;
+            $storedPath = 'images/' . time() . '_' . $imageName;
+            $targetFile = $targetDir . substr($storedPath, strlen('images/'));
             if (!move_uploaded_file($images['tmp_name'][$key], $targetFile)) {
                 $message = "Failed to move uploaded image " . ($key + 1) . ".";
                 $message_type = 'error';
                 $error = true;
                 break;
             }
-            $uploaded_images[] = $targetFile;
+            $uploaded_images[] = $storedPath;
         }
 
         if (!$error) {
@@ -137,8 +140,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $conn->rollback();
                 // Clean up uploaded files if transaction fails
                 foreach ($uploaded_images as $file) {
-                    if (file_exists($file)) {
-                        unlink($file);
+                    $uploadedFile = __DIR__ . '/' . $file;
+                    if (file_exists($uploadedFile)) {
+                        unlink($uploadedFile);
                     }
                 }
                 $message = $e->getMessage();

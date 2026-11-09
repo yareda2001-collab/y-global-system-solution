@@ -37,7 +37,7 @@ if ($conn) { $conn->close(); }
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.css" rel="stylesheet">
   <!-- Main CSS File -->
   <link href="assets/css/main.css?v=public-header-36" rel="stylesheet">
   <style>
@@ -473,21 +473,27 @@ if ($conn) { $conn->close(); }
               data-description="<?php echo htmlspecialchars($portfolio['description'] ?: ''); ?>">
               <h3><?php echo htmlspecialchars($portfolio['title']); ?></h3>
               <?php
-                $portfolioImages = $portfolio['images'] ? explode(',', $portfolio['images']) : [];
+                $portfolioImages = $portfolio['images'] ? array_filter(array_map('trim', explode(',', $portfolio['images']))) : [];
                 if (!empty($portfolioImages)):
               ?>
                 <div class="swiper">
                   <div class="swiper-wrapper">
                     <?php foreach ($portfolioImages as $image): ?>
-                      <?php $trimmedImage = trim($image); if ($trimmedImage === '') continue; ?>
                       <div class="swiper-slide">
-                        <img src="admin/<?php echo htmlspecialchars($trimmedImage); ?>" alt="Portfolio Image" loading="lazy">
+                        <?php
+                        $imagePath = ltrim(str_replace('\\', '/', $image), '/');
+                        $imagePath = preg_replace('#^(?:\./)?admin/#i', '', $imagePath);
+                        $imageUrl = 'admin/' . implode('/', array_map('rawurlencode', explode('/', $imagePath)));
+                        ?>
+                        <img src="<?php echo htmlspecialchars($imageUrl); ?>" alt="<?php echo htmlspecialchars($portfolio['title']); ?> project image" loading="lazy">
                       </div>
                     <?php endforeach; ?>
                   </div>
-                  <div class="swiper-button-prev"></div>
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-pagination"></div>
+                  <?php if (count($portfolioImages) > 1): ?>
+                    <div class="swiper-button-prev" aria-label="Previous image"></div>
+                    <div class="swiper-button-next" aria-label="Next image"></div>
+                    <div class="swiper-pagination"></div>
+                  <?php endif; ?>
                 </div>
               <?php else: ?>
                 <p>No images available for this project.</p>
@@ -650,24 +656,28 @@ if ($conn) { $conn->close(); }
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11.1.9/swiper-bundle.min.js"></script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
     AOS.init({ duration: 1000 });
 
     document.querySelectorAll('.portfolio-item .swiper').forEach(function(swiperContainer) {
-      new Swiper(swiperContainer, {
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
+      const slideCount = swiperContainer.querySelectorAll('.swiper-slide').length;
+      const options = { loop: slideCount > 1, watchOverflow: true };
+
+      if (slideCount > 1) {
+        options.pagination = {
+          el: swiperContainer.querySelector('.swiper-pagination'),
           clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
-      });
+        };
+        options.navigation = {
+          nextEl: swiperContainer.querySelector('.swiper-button-next'),
+          prevEl: swiperContainer.querySelector('.swiper-button-prev'),
+        };
+      }
+
+      new Swiper(swiperContainer, options);
     });
 
     const portfolioGrid = document.getElementById('mobilePortfolioCarousel');

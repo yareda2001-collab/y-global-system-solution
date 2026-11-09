@@ -48,7 +48,7 @@ if ($safe_picture && is_file($admin_picture_path)) {
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/user-sidebar.css?v=9" rel="stylesheet">
     <link href="../assets/css/user-footer.css?v=3" rel="stylesheet">
-    <link href="../assets/css/user-dashboard.css?v=2" rel="stylesheet">
+    <link href="../assets/css/user-dashboard.css?v=3" rel="stylesheet">
     <link href="../assets/css/user-mobile.css?v=4" rel="stylesheet">
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -66,7 +66,7 @@ if ($safe_picture && is_file($admin_picture_path)) {
                     <li><a href="update_password.php">Update Password</a></li>
                     <li><a href="update_profile_picture.php">Update Profile Picture</a></li>
                     <li><a href="settings.php">Settings</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="messages.php">Messages</a></li>
                     <li><button class="logout-btn" onclick="confirmLogout()">Log Out</button></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

@@ -140,9 +140,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_id'])) {
             }
 
             // Handle new image uploads
-            $targetDir = "images/";
+            $targetDir = __DIR__ . '/images/';
             if (!is_dir($targetDir)) {
-                mkdir($targetDir, 0755, true);
+                if (!mkdir($targetDir, 0755, true) && !is_dir($targetDir)) {
+                    throw new RuntimeException("Unable to create the portfolio image directory.");
+                }
             }
             $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
             $max_size = 10 * 1024 * 1024; // 10MB
@@ -159,11 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_id'])) {
                             throw new Exception("Image " . ($key + 1) . " size exceeds 10MB limit.");
                         }
                         $imageName = basename($name);
-                        $targetFile = $targetDir . time() . '_' . $imageName;
+                        $storedPath = 'images/' . time() . '_' . $imageName;
+                        $targetFile = $targetDir . substr($storedPath, strlen('images/'));
                         if (!move_uploaded_file($images['tmp_name'][$key], $targetFile)) {
                             throw new Exception("Failed to upload image " . ($key + 1) . ".");
                         }
-                        $uploaded_images[] = $targetFile;
+                        $uploaded_images[] = $storedPath;
                     }
                 }
             }
@@ -191,8 +194,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_id'])) {
         } catch (Exception $e) {
             $conn->rollback();
             foreach ($uploaded_images as $file) {
-                if (file_exists($file)) {
-                    unlink($file);
+                $uploadedFile = __DIR__ . '/' . $file;
+                if (file_exists($uploadedFile)) {
+                    unlink($uploadedFile);
                 }
             }
             $errorMessage = $e->getMessage();

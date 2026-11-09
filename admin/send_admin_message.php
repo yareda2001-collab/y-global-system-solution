@@ -12,9 +12,11 @@ include 'connect.php';
 
 $admin_id = (int)$_SESSION['user_id'];
 $receiver_id = filter_input(INPUT_POST, 'receiver_id', FILTER_VALIDATE_INT);
-$message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+$message = isset($_POST['message']) && is_string($_POST['message'])
+    ? trim($_POST['message'])
+    : '';
 
-error_log("send_admin_message.php: Admin ID: $admin_id, Receiver ID: $receiver_id, Message: $message");
+error_log("send_admin_message.php: Admin ID: $admin_id, Receiver ID: $receiver_id");
 
 if (!$receiver_id || !$message) {
     error_log('send_admin_message.php: Invalid receiver ID or empty message');
@@ -22,8 +24,11 @@ if (!$receiver_id || !$message) {
     exit;
 }
 
-// Verify receiver exists
-$sql = "SELECT id FROM users WHERE id = ? AND status = 1";
+// Accept the active-status formats used by both local and hosted databases.
+$sql = "SELECT id
+        FROM users
+        WHERE id = ?
+          AND LOWER(CAST(status AS CHAR)) IN ('1', 'active', 'enabled')";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $receiver_id);
 $stmt->execute();
