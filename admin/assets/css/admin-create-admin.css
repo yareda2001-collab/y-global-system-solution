@@ -1,0 +1,385 @@
+.admin-create-admin-page .create-admin-section {
+    padding: clamp(2rem, 5vw, 4.5rem) 1rem;
+    background:
+        radial-gradient(ellipse at 10% 5%, rgba(59, 130, 246, 0.12), transparent 38%),
+        linear-gradient(145deg, #f3f7fb 0%, #e8f0f7 100%);
+}
+
+.admin-create-admin-page .form-container {
+    max-width: 720px;
+    padding: clamp(1.25rem, 4vw, 2.75rem);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 24px 70px rgba(8, 47, 67, 0.14);
+}
+
+.admin-create-heading {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admin-create-heading-icon {
+    display: grid;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    place-items: center;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #0b5676, #2563eb);
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+    color: #fff;
+    font-size: 1.65rem;
+}
+
+.admin-create-eyebrow {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #2563eb;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+}
+
+.admin-create-admin-page .admin-create-heading h1 {
+    margin: 0;
+    color: #082f43;
+    font-size: clamp(1.65rem, 5vw, 2.25rem);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+}
+
+.admin-create-heading p {
+    max-width: 470px;
+    margin: 0.65rem auto 0;
+    color: #64748b;
+    line-height: 1.65;
+}
+
+.admin-create-admin-page form {
+    padding-top: 1.7rem;
+    border-top: 1px solid #e8eef4;
+}
+
+.admin-create-admin-page form .form-label {
+    margin-bottom: 0.5rem;
+    color: #263b50;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.admin-create-admin-page form .form-control {
+    min-height: 50px;
+    border: 1px solid #d6e0e9;
+    border-radius: 12px;
+    background-color: #fbfdff;
+    box-shadow: none;
+}
+
+.admin-create-admin-page form .form-control:focus {
+    border-color: #4387e8;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+}
+
+.admin-create-admin-page .password-container .form-control {
+    padding-right: 3.25rem;
+}
+
+.admin-create-admin-page .password-toggle {
+    top: 2rem;
+    right: 0.55rem;
+    z-index: 2;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    transform: none;
+    place-items: center;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.admin-create-admin-page .password-toggle:hover,
+.admin-create-admin-page .password-toggle:focus-visible {
+    color: #1d4ed8;
+}
+
+.optional-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.23rem 0.6rem;
+    border: 1px solid #dce8f0;
+    border-radius: 999px;
+    background: #f3f8fb;
+    color: #62788a;
+    font-size: 0.72rem;
+    font-weight: 650;
+}
+
+.admin-create-admin-page .profile-picture-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.admin-create-admin-page .profile-picture-label .form-label {
+    margin: 0;
+}
+
+.admin-create-admin-page .profile-picture-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin: 0.8rem auto;
+}
+
+.admin-create-admin-page .custom-file-upload,
+.admin-create-admin-page .capture-photo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 42px;
+    padding: 0.55rem 0.9rem;
+    border: 1px solid #d9e4ed;
+    border-radius: 11px;
+    background: #f5f9fc;
+    color: #174761;
+    font-size: 0.88rem;
+    font-weight: 650;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.admin-create-admin-page .custom-file-upload:hover,
+.admin-create-admin-page .capture-photo:hover {
+    transform: translateY(-1px);
+    border-color: #9dc2e8;
+    background: #eaf3fb;
+}
+
+.admin-create-admin-page .video-container video {
+    width: min(100%, 390px);
+    border: 1px solid #d6e0e9;
+    border-radius: 16px;
+}
+
+.admin-create-admin-page .video-container {
+    margin: 0.75rem auto;
+}
+
+.admin-create-admin-page .profile-picture-preview {
+    max-width: 130px;
+    max-height: 130px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 5px 20px rgba(8, 47, 67, 0.18);
+    object-fit: cover;
+}
+
+.admin-create-admin-page form > .btn-primary {
+    min-height: 52px;
+    margin-top: 0.5rem;
+    border: 0;
+    border-radius: 13px;
+    background: linear-gradient(120deg, #0b5676, #2563eb);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.2);
+    font-size: 1rem;
+    font-weight: 700;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-create-admin-page form > .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 26px rgba(37, 99, 235, 0.27);
+}
+
+.created-credentials {
+    margin-bottom: 1.75rem;
+    padding: clamp(1rem, 3vw, 1.5rem);
+    border: 1px solid #b9e8d0;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #f1fbf5, #fff 75%);
+}
+
+.credentials-success {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+.credentials-success-icon {
+    display: grid;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 14px;
+    background: #d7f5e4;
+    color: #13834b;
+    font-size: 1.25rem;
+}
+
+.credentials-success h2 {
+    margin: 0;
+    color: #14532d;
+    font-size: 1.15rem;
+    font-weight: 750;
+}
+
+.credentials-success p {
+    margin: 0.2rem 0 0;
+    color: #587267;
+    font-size: 0.9rem;
+}
+
+.credential-field {
+    margin-top: 0.9rem;
+}
+
+.credential-field > label {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: #365044;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.credential-value-wrap {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    border: 1px solid #d8e6de;
+    border-radius: 11px;
+    background: #fff;
+}
+
+.credential-value-wrap input {
+    width: 100%;
+    min-width: 0;
+    min-height: 38px;
+    padding: 0 0.55rem;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #213c30;
+    font-size: 0.92rem;
+}
+
+.credential-copy-button,
+.credential-visibility-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    min-height: 38px;
+    padding: 0.4rem 0.65rem;
+    border: 0;
+    border-radius: 8px;
+    background: #edf7f0;
+    color: #246443;
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.credential-visibility-button {
+    width: 38px;
+    padding: 0;
+    background: transparent;
+    font-size: 1rem;
+}
+
+.credential-copy-button:hover,
+.credential-visibility-button:hover {
+    background: #dff1e5;
+}
+
+.copy-email-button {
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 1.2rem;
+    border: 0;
+    border-radius: 11px;
+    background: #116341;
+    color: #fff;
+    font-weight: 700;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.copy-email-button:hover {
+    transform: translateY(-1px);
+    background: #0e5034;
+}
+
+.credential-copy-status {
+    min-height: 1.3rem;
+    margin: 0.55rem 0 0;
+    color: #17613e;
+    font-size: 0.84rem;
+    text-align: center;
+}
+
+.credential-copy-status.copy-error {
+    color: #b42318;
+}
+
+.credential-security-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    margin-top: 0.7rem;
+    padding: 0.75rem;
+    border-radius: 10px;
+    background: #fff8e8;
+    color: #805a16;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.credential-security-note i {
+    margin-top: 0.1rem;
+}
+
+@media (max-width: 575px) {
+    .admin-create-admin-page .main {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .admin-create-admin-page .form-container {
+        border-radius: 18px;
+    }
+
+    .credential-value-wrap {
+        gap: 0.15rem;
+    }
+
+    .credential-copy-button {
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .admin-create-admin-page *,
+    .admin-create-admin-page *::before,
+    .admin-create-admin-page *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -1,0 +1,15 @@
+@media (min-width: 992px) {
+    body.user-portal-page #footer .footer-top {
+        display: none !important;
+    }
+
+    body.user-portal-page #footer .copyright {
+        margin-top: 0 !important;
+        padding: 1.5rem 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    body.user-portal-page #footer .copyright p {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+config.local.php
+config.production.php
+credentials*.json
+client_secret*.json
+*.pem
+*.key
+*.p12
+.secrets/
