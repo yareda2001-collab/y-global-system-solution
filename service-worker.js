@@ -1,4 +1,4 @@
-const CACHE_NAME = "y-global-static-v4";
+const CACHE_NAME = "y-global-static-v5";
 const APP_ROOT = self.registration.scope;
 const OFFLINE_URL = new URL("offline.html", APP_ROOT).href;
 const PRECACHE_URLS = [
@@ -11,7 +11,17 @@ const STATIC_FILE_PATTERN = /\.(?:css|js|png|jpe?g|gif|svg|webp|ico|woff2?)$/i;
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then((cache) => Promise.all(PRECACHE_URLS.map(async (url) => {
+        try {
+          const response = await fetch(url, { cache: "reload" });
+          if (!response.ok) {
+            throw new Error(`Precache request failed with status ${response.status}`);
+          }
+          await cache.put(url, response);
+        } catch (error) {
+          console.error(`Service worker could not cache ${url}:`, error);
+        }
+      })))
       .then(() => self.skipWaiting())
   );
 });

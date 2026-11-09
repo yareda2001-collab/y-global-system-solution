@@ -235,7 +235,7 @@ ob_end_flush(); // End output buffering
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#033f5a">
-    <link rel="manifest" href="manifest.php?v=4">
+    <link rel="manifest" href="manifest.php?v=6">
     <link rel="apple-touch-icon" href="assets/img/pwa-192.png?v=4">
     <title>Forgot Password - Y-Global System Solution</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -246,7 +246,7 @@ ob_end_flush(); // End output buffering
     <link href="assets/img/favicon1.png" rel="icon">
     <link href="assets/img/pwa-192.png?v=4" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link href="assets/css/main.css?v=public-header-35" rel="stylesheet">
+    <link href="assets/css/main.css?v=public-header-36" rel="stylesheet">
     <style>
         body {
             background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);

@@ -10,6 +10,10 @@
   display: none;
 }
 
+.user-portal-page .user-sidebar-install[hidden] {
+  display: none !important;
+}
+
 .user-portal-page .user-sidebar-reopen {
   display: none;
 }
@@ -209,11 +213,13 @@
   }
 
   .user-portal-page .user-sidebar-nav a,
+  .user-portal-page .user-sidebar-install,
   .user-portal-page .user-sidebar-logout {
     color: rgba(239, 250, 255, 0.86);
   }
 
   .user-portal-page .user-sidebar-nav a i,
+  .user-portal-page .user-sidebar-install i,
   .user-portal-page .user-sidebar-logout i {
     color: #9bd9e9;
   }
@@ -314,6 +320,7 @@
   }
 
   .user-portal-page .user-sidebar-nav a,
+  .user-portal-page .user-sidebar-install,
   .user-portal-page .user-sidebar-logout {
     display: flex;
     min-height: 46px;
@@ -333,6 +340,7 @@
   }
 
   .user-portal-page .user-sidebar-nav a i,
+  .user-portal-page .user-sidebar-install i,
   .user-portal-page .user-sidebar-logout i {
     width: 20px;
     color: #8195a0;
@@ -365,6 +373,17 @@
   .user-portal-page .user-sidebar-logout {
     width: 100%;
     cursor: pointer;
+  }
+
+  .user-portal-page .user-sidebar-install {
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .user-portal-page .user-sidebar-install:hover {
+    background: #eaf8fb;
+    color: #075c7a;
   }
 
   .user-portal-page .user-sidebar-logout:hover {
@@ -544,6 +563,7 @@
   }
 
   .user-portal-page .user-sidebar-nav a,
+  .user-portal-page .user-sidebar-install,
   .user-portal-page .user-sidebar-logout {
     display: flex;
     min-height: 48px;
@@ -562,6 +582,7 @@
   }
 
   .user-portal-page .user-sidebar-nav a i,
+  .user-portal-page .user-sidebar-install i,
   .user-portal-page .user-sidebar-logout i {
     width: 21px;
     color: #9bd9e9;
@@ -584,6 +605,17 @@
   .user-portal-page .user-sidebar-logout {
     width: 100%;
     cursor: pointer;
+  }
+
+  .user-portal-page .user-sidebar-install {
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .user-portal-page .user-sidebar-install:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #a9efff;
   }
 
   .user-portal-page .user-sidebar-logout:hover {

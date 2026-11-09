@@ -1,5 +1,25 @@
 # y-global-system-solution
 
+## Install as an app
+
+The public and signed-in user pages can be installed as a Progressive Web App
+when served over HTTPS. Upload the manifest endpoint, `manifest.json`,
+`service-worker.js`, `offline.html`, the PWA icons under `assets/img/`, and
+`assets/js/pwa-install.js` together with the site. Also upload the updated page
+files and shared navigation includes so the install button and current manifest
+version are present on the hosted pages.
+
+After uploading, verify that `manifest.php`, `service-worker.js`, `offline.html`,
+both PWA icons, and `assets/js/pwa-install.js` load successfully over HTTPS.
+Reload the site after the service worker activates; if an older version remains,
+clear the site's cached data/service worker and reload. On Chrome/Edge, use
+**Install app** in the account or public navigation menu; if the browser doesn't
+offer an automatic prompt, use its menu's **Install app** or **Add to Home
+Screen** action. On iPhone/iPad, open the site in Safari and use **Share → Add
+to Home Screen**. Browser install prompts are controlled by each browser and
+can only appear on supported browsers over HTTPS when the manifest and service
+worker are valid.
+
 ## Local configuration
 
 Copy `.env.example` to `.env` in the project root and fill in the values for your

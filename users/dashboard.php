@@ -32,6 +32,10 @@ if ($safe_picture && is_file($admin_picture_path)) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#033f5a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="../manifest.php?v=6">
+    <link rel="apple-touch-icon" href="../assets/img/pwa-192.png">
     <title>User Dashboard - Y-Global System Solution</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -42,8 +46,10 @@ if ($safe_picture && is_file($admin_picture_path)) {
     <link href="../assets/img/apple-touch-icon1.png" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
-    <link href="../assets/css/user-sidebar.css?v=8" rel="stylesheet">
-    <link href="../assets/css/user-dashboard.css?v=1" rel="stylesheet">
+    <link href="../assets/css/user-sidebar.css?v=9" rel="stylesheet">
+    <link href="../assets/css/user-footer.css?v=3" rel="stylesheet">
+    <link href="../assets/css/user-dashboard.css?v=2" rel="stylesheet">
+    <link href="../assets/css/user-mobile.css?v=4" rel="stylesheet">
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
@@ -60,7 +66,7 @@ if ($safe_picture && is_file($admin_picture_path)) {
                     <li><a href="update_password.php">Update Password</a></li>
                     <li><a href="update_profile_picture.php">Update Profile Picture</a></li>
                     <li><a href="settings.php">Settings</a></li>
-                    <li><a href="messages.php">Messages</a></li>
+                    <li><a href="logout.php">Logout</a></li>
                     <li><button class="logout-btn" onclick="confirmLogout()">Log Out</button></li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -186,6 +192,7 @@ if ($safe_picture && is_file($admin_picture_path)) {
     <script src="../assets/vendor/php-email-form/validate.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/user-sidebar.js?v=3"></script>
+    <script src="../assets/js/pwa-install.js?v=2"></script>
     <script>
         AOS.init({
             duration: 800,

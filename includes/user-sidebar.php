@@ -31,6 +31,9 @@ $currentUserPage = basename($_SERVER['PHP_SELF']);
     </a>
   </nav>
   <div class="user-sidebar-bottom">
+    <button type="button" class="user-sidebar-install" id="install-app" hidden>
+      <i class="bi bi-download" aria-hidden="true"></i><span>Install app</span>
+    </button>
     <button type="button" class="user-sidebar-logout" onclick="confirmLogout()">
       <i class="bi bi-box-arrow-right" aria-hidden="true"></i><span>Log out</span>
     </button>

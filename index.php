@@ -19,7 +19,7 @@ if ($conn) { $conn->close(); }
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#033f5a">
-  <link rel="manifest" href="manifest.php?v=4">
+  <link rel="manifest" href="manifest.php?v=6">
   <link rel="apple-touch-icon" href="assets/img/pwa-192.png?v=4">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -39,7 +39,7 @@ if ($conn) { $conn->close(); }
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <!-- Main CSS File -->
-  <link href="assets/css/main.css?v=public-header-35" rel="stylesheet">
+  <link href="assets/css/main.css?v=public-header-36" rel="stylesheet">
   <style>
     /* Prevent horizontal scrolling globally */
     html, body {

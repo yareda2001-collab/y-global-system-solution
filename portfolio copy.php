@@ -21,8 +21,10 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta name="theme-color" content="#033f5a">
+  <link rel="manifest" href="manifest.php?v=6">
+  <link rel="apple-touch-icon" href="assets/img/pwa-192.png">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta http-equiv="Content-Security-Policy" content="

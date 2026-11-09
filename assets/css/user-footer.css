@@ -1,4 +1,8 @@
-@media (min-width: 992px) {
+@media (min-width: 768px) {
+    body.user-portal-page #footer {
+        background: linear-gradient(90deg, #033f5a 0%, #045c7f 100%) !important;
+    }
+
     body.user-portal-page #footer .footer-top {
         display: none !important;
     }

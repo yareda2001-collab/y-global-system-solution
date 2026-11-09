@@ -76,14 +76,9 @@ $pageTitle = [
       <i class="bi bi-key" aria-hidden="true"></i><span>Forgot Password</span>
     </a>
   </nav>
+  <button type="button" class="public-sidebar-install" id="install-app" hidden>
+    <i class="bi bi-download" aria-hidden="true"></i><span>Install app</span>
+  </button>
 </aside>
 <script src="assets/js/public-sidebar.js?v=1" defer></script>
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./service-worker.js').catch((error) => {
-        console.error('Service worker registration failed:', error);
-      });
-    });
-  }
-</script>
+<script src="assets/js/pwa-install.js?v=2" defer></script>

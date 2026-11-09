@@ -44,6 +44,10 @@ $selected_user_id = isset($_GET['receiver_id']) ? (int)$_GET['receiver_id'] : 0;
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#033f5a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="../manifest.php?v=6">
+    <link rel="apple-touch-icon" href="../assets/img/pwa-192.png">
     <title>Messages - Y-Global System Solution</title>
     <link href="../assets/img/favicon1.png" rel="icon">
     <link href="../assets/img/apple-touch-icon1.png" rel="apple-touch-icon">
@@ -56,8 +60,9 @@ $selected_user_id = isset($_GET['receiver_id']) ? (int)$_GET['receiver_id'] : 0;
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="../assets/css/main.css" rel="stylesheet">
     <link href="../assets/css/messages.css?v=4" rel="stylesheet">
-    <link href="../assets/css/user-sidebar.css?v=8" rel="stylesheet">
-    <link href="../assets/css/user-footer.css?v=1" rel="stylesheet">
+    <link href="../assets/css/user-sidebar.css?v=9" rel="stylesheet">
+    <link href="../assets/css/user-footer.css?v=3" rel="stylesheet">
+    <link href="../assets/css/user-mobile.css?v=4" rel="stylesheet">
     <style>
         html, body { height: 100%; margin: 0; font-family: 'Roboto', sans-serif; }
         body { display: flex; flex-direction: column; }
@@ -559,6 +564,7 @@ $selected_user_id = isset($_GET['receiver_id']) ? (int)$_GET['receiver_id'] : 0;
     <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
     <script src="../assets/js/user-sidebar.js?v=3"></script>
+    <script src="../assets/js/pwa-install.js?v=2"></script>
     <script>
         // Initialize AOS
         AOS.init({ duration: 1000 });

@@ -1,7 +1,7 @@
 <?php
 $currentUserPage = basename($_SERVER['PHP_SELF']);
 ?>
-<nav class="mobile-app-nav" aria-label="Account navigation">
+<nav class="mobile-app-nav" aria-label="Account navigation" style="display: none">
   <a href="dashboard.php" <?php echo $currentUserPage === 'dashboard.php' ? 'aria-current="page"' : ''; ?>>
     <i class="bi bi-house-door" aria-hidden="true"></i>
     <span>Home</span>

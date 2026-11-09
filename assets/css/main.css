@@ -216,6 +216,37 @@ body:not(.admin-app-page):not(.user-portal-page) #header .navmenu ul li a.active
   border-bottom: 0;
 }
 
+body:not(.admin-app-page):not(.user-portal-page) .public-sidebar-install[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 1199px) {
+  body:not(.admin-app-page):not(.user-portal-page) .public-sidebar-install {
+    display: flex;
+    min-height: 48px;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.75rem;
+    padding: 0.7rem 0.8rem;
+    border: 1px solid rgba(157, 231, 248, 0.2);
+    border-radius: 12px;
+    background: rgba(133, 220, 242, 0.1);
+    color: #a9efff;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 550;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  body:not(.admin-app-page):not(.user-portal-page) .public-sidebar-install i {
+    width: 21px;
+    color: #9bd9e9;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
 body:not(.admin-app-page):not(.user-portal-page) #header .navmenu ul li a.public-header-cta {
   padding: 0.5rem 1rem;
   border: 0;
@@ -556,6 +587,10 @@ body:not(.admin-app-page):not(.user-portal-page) #header .navmenu ul li a[href="
   body:not(.admin-app-page):not(.user-portal-page) .public-sidebar-nav a[aria-current="page"] {
     background: rgba(133, 220, 242, 0.14);
     color: #a9efff;
+  }
+
+  body:not(.admin-app-page):not(.user-portal-page) .public-sidebar-install:hover {
+    background: rgba(133, 220, 242, 0.2);
   }
 
   body.mobile-app-page:not(.user-portal-page) .public-sidebar,
