@@ -41,9 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $_SESSION['admin_logged_in'] = true;
                         $_SESSION['user_id'] = $user['id'];
                         $_SESSION['role'] = $user['role'];
+                        $_SESSION['force_password_change'] = (int) $user['force_password_change'] === 1;
 
                         // Check if password change is required
-                        if ($user['force_password_change'] == 1) {
+                        if ($_SESSION['force_password_change']) {
                             header("Location: change_password.php");
                         } else {
                             header("Location: dashboard.php");

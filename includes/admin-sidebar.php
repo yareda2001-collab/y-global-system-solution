@@ -4,18 +4,22 @@ $sidebarUnreadMessages = (int)($unread_messages ?? $unread_count ?? 0);
 $sidebarPendingRequests = (int)($pending_count ?? 0);
 $sidebarCanManageAdminAccounts = ($_SESSION['role'] ?? '') === 'super_admin';
 if (!$sidebarCanManageAdminAccounts && isset($conn) && $conn instanceof mysqli && isset($_SESSION['user_id'])) {
-  $sidebarPermissionStmt = $conn->prepare(
-    'SELECT can_create_admins FROM admin_rights WHERE admin_id = ?'
-  );
-  if ($sidebarPermissionStmt) {
-    $sidebarUserId = (int) $_SESSION['user_id'];
-    $sidebarPermissionStmt->bind_param('i', $sidebarUserId);
-    $sidebarPermissionStmt->execute();
-    $sidebarPermission = $sidebarPermissionStmt->get_result()->fetch_assoc();
-    $sidebarCanManageAdminAccounts = (int) ($sidebarPermission['can_create_admins'] ?? 0) === 1;
-    $sidebarPermissionStmt->close();
-  } else {
-    error_log('Could not load admin account management navigation permission: ' . $conn->error);
+  try {
+    $sidebarPermissionStmt = $conn->prepare(
+      'SELECT can_create_admins FROM admin_rights WHERE admin_id = ?'
+    );
+    if ($sidebarPermissionStmt) {
+      $sidebarUserId = (int) $_SESSION['user_id'];
+      $sidebarPermissionStmt->bind_param('i', $sidebarUserId);
+      $sidebarPermissionStmt->execute();
+      $sidebarPermission = $sidebarPermissionStmt->get_result()->fetch_assoc();
+      $sidebarCanManageAdminAccounts = (int) ($sidebarPermission['can_create_admins'] ?? 0) === 1;
+      $sidebarPermissionStmt->close();
+    } else {
+      error_log('Could not load admin account management navigation permission: ' . $conn->error);
+    }
+  } catch (mysqli_sql_exception | Error $error) {
+    error_log('Could not load admin account management navigation permission: ' . $error->getMessage());
   }
 }
 ?>

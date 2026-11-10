@@ -914,26 +914,33 @@ $conn->close();
         // Mobile Nav Toggle
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const navMenu = document.querySelector('.navmenu ul');
-        mobileNavToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
+        if (mobileNavToggle && navMenu) {
+            mobileNavToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+            });
+        }
 
         // Close mobile nav when clicking a link
-        document.querySelectorAll('.navmenu ul li a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('show')) {
-                    navMenu.classList.remove('show');
-                }
+        if (navMenu) {
+            document.querySelectorAll('.navmenu ul li a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navMenu.classList.contains('show')) {
+                        navMenu.classList.remove('show');
+                    }
+                });
             });
-        });
+        }
 
         // Handle dropdown toggles
         document.querySelectorAll('.toggle-dropdown').forEach(dropdown => {
             dropdown.addEventListener('click', e => {
                 e.preventDefault();
                 const parentLi = dropdown.parentElement;
+                if (!parentLi) return;
                 const dropdownMenu = parentLi.querySelector('ul');
-                dropdownMenu.classList.toggle('show');
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('show');
+                }
             });
         });
 

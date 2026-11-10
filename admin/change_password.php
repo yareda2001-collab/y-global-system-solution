@@ -7,39 +7,54 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     exit;
 }
 
-include 'connect.php';
+require_once __DIR__ . '/connect.php';
 
-// Fetch logged-in user's details
-$logged_in_user_id = intval($_SESSION['user_id']);
-$sql = "SELECT username, profile_picture, force_password_change FROM users WHERE id = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $logged_in_user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$user = $result->num_rows > 0 ? $result->fetch_assoc() : null;
-$stmt->close();
+$logged_in_user_id = (int) $_SESSION['user_id'];
+$unread_messages = 0;
+$pending_count = 0;
+$notification_error = false;
+$db_connect_error = $db_config_error ?? null;
 
-// Fetch unread messages for notification bell
-$unread_messages_sql = "SELECT COUNT(*) as total FROM messages WHERE receiver_id = ? AND is_seen = 0 AND seen_by_user = 0";
-$unread_messages_stmt = $conn->prepare($unread_messages_sql);
-$unread_messages_stmt->bind_param("i", $logged_in_user_id);
-$unread_messages_stmt->execute();
-$unread_messages_result = $unread_messages_stmt->get_result();
-$unread_messages = $unread_messages_result->fetch_assoc()['total'];
-$unread_messages_stmt->close();
+if ($conn === null && $db_connect_error !== null) {
+    $notification_error = true;
+}
 
-// Count pending reset requests for notification bell
-$pending_requests_sql = "SELECT COUNT(*) as pending_count FROM password_reset_requests WHERE status = 'pending'";
-$pending_requests_result = $conn->query($pending_requests_sql);
-$pending_count = $pending_requests_result->num_rows > 0 ? $pending_requests_result->fetch_assoc()['pending_count'] : 0;
+if ($conn !== null) {
+    try {
+        $unread_messages_sql = "SELECT COUNT(*) AS total FROM messages WHERE receiver_id = ? AND is_seen = 0 AND seen_by_user = 0";
+        $unread_messages_stmt = $conn->prepare($unread_messages_sql);
+        if ($unread_messages_stmt === false) {
+            throw new RuntimeException('Could not prepare the unread-message count query.');
+        }
+        $unread_messages_stmt->bind_param("i", $logged_in_user_id);
+        $unread_messages_stmt->execute();
+        $unread_messages_result = $unread_messages_stmt->get_result();
+        $unread_messages = (int) ($unread_messages_result->fetch_assoc()['total'] ?? 0);
+        $unread_messages_stmt->close();
+    } catch (mysqli_sql_exception | RuntimeException $error) {
+        $notification_error = true;
+        error_log('Change-password page could not load unread-message count: ' . $error->getMessage());
+    }
+
+    try {
+        $pending_requests_result = $conn->query("SELECT COUNT(*) AS pending_count FROM password_reset_requests WHERE status = 'pending'");
+        if ($pending_requests_result === false) {
+            throw new RuntimeException('Could not load the pending reset-request count.');
+        }
+        $pending_count = (int) ($pending_requests_result->fetch_assoc()['pending_count'] ?? 0);
+    } catch (mysqli_sql_exception | RuntimeException $error) {
+        $notification_error = true;
+        error_log('Change-password page could not load pending reset-request count: ' . $error->getMessage());
+    }
+}
 
 // Handle password change
 $message = null;
 $message_type = null;
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $current_password = $_POST['current_password'];
-    $new_password = $_POST['new_password'];
-    $confirm_password = $_POST['confirm_password'];
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+    $current_password = $_POST['current_password'] ?? '';
+    $new_password = $_POST['new_password'] ?? '';
+    $confirm_password = $_POST['confirm_password'] ?? '';
 
     // Validate inputs
     if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
@@ -53,48 +68,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message_type = "danger";
     } else {
         // Verify current password
-        $sql = "SELECT password FROM users WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $logged_in_user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $user_data = $result->fetch_assoc();
-        $stmt->close();
+        if ($conn !== null) {
+            try {
+                $stmt = $conn->prepare("SELECT password FROM users WHERE id = ?");
+                if ($stmt === false) {
+                    throw new RuntimeException('Could not prepare the password verification query.');
+                }
+                $stmt->bind_param("i", $logged_in_user_id);
+                $stmt->execute();
+                $user_data = $stmt->get_result()->fetch_assoc();
+                $stmt->close();
 
-        if (password_verify($current_password, $user_data['password'])) {
-            // Update password and reset force_password_change
-            $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-            $force_password_change = 0;
-            $sql = "UPDATE users SET password = ?, force_password_change = ? WHERE id = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("sii", $hashed_password, $force_password_change, $logged_in_user_id);
-            if ($stmt->execute()) {
-                $message = "Password changed successfully.";
-                $message_type = "success";
-                // Redirect to dashboard after successful password change
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                $message = "Error changing password: " . $stmt->error;
+                if (!$user_data || !password_verify($current_password, $user_data['password'])) {
+                    $message = "Current password is incorrect.";
+                    $message_type = "danger";
+                } else {
+                    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                    $stmt = $conn->prepare("UPDATE users SET password = ?, force_password_change = 0 WHERE id = ?");
+                    if ($stmt === false) {
+                        throw new RuntimeException('Could not prepare the password update query.');
+                    }
+                    $stmt->bind_param("si", $hashed_password, $logged_in_user_id);
+                    $stmt->execute();
+                    $stmt->close();
+
+                    unset($_SESSION['force_password_change']);
+                    header("Location: dashboard.php");
+                    exit;
+                }
+            } catch (mysqli_sql_exception | RuntimeException $error) {
+                error_log('Admin password change failed: ' . $error->getMessage());
+                $message = "The password could not be changed because of a server error. Please try again.";
                 $message_type = "danger";
             }
-            $stmt->close();
         } else {
-            $message = "Current password is incorrect.";
+            $message = "The database is not configured yet. Add the LOCAL_DB_* values in your .env file and try again.";
             $message_type = "danger";
         }
     }
 }
 
-$conn->close();
-
-// Determine profile picture URL
-$profile_picture_filename = basename($user['profile_picture'] ?? '');
-$profile_picture_url = $profile_picture_filename && $profile_picture_filename !== 'default-profile.png'
-    ? (is_file(__DIR__ . '/Uploads/' . $profile_picture_filename)
-        ? 'Uploads/' . rawurlencode($profile_picture_filename)
-        : '../Uploads/' . rawurlencode($profile_picture_filename))
-    : '../assets/img/default-profile.png';
 ?>
 
 <!DOCTYPE html>
@@ -460,6 +473,7 @@ $profile_picture_url = $profile_picture_filename && $profile_picture_filename !=
         </div>
     </header>
     <?php include __DIR__ . '/../includes/admin-sidebar.php'; ?>
+    <?php if ($conn !== null) { $conn->close(); } ?>
 
     <main class="main">
         <section id="change-password" class="change-password-section section">
@@ -469,6 +483,19 @@ $profile_picture_url = $profile_picture_filename && $profile_picture_filename !=
                     <h2>Change password</h2>
                     <p>Update your password to keep your admin account secure.</p>
                 </div>
+                <?php if ($db_connect_error !== null): ?>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>Local setup needed:</strong> <?php echo htmlspecialchars($db_connect_error, ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if ($notification_error): ?>
+                    <div class="alert alert-warning" role="status">Some notification counts could not be loaded. You can still change your password.</div>
+                <?php endif; ?>
+                <?php if ($message !== null): ?>
+                    <div class="alert alert-<?php echo htmlspecialchars($message_type, ENT_QUOTES, 'UTF-8'); ?>" role="alert">
+                        <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
+                    </div>
+                <?php endif; ?>
                 <form method="post" class="needs-validation" novalidate id="passwordForm">
                     <!-- Current Password Field -->
                     <div class="mb-3 password-field">
