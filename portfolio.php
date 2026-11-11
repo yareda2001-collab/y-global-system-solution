@@ -215,7 +215,8 @@ $conn->close();
 
     .portfolio-item .swiper {
       width: 100%;
-      height: 280px;
+      height: auto;
+      aspect-ratio: 16 / 9;
       margin-bottom: 20px;
       border-radius: 10px;
       overflow: hidden;
@@ -230,16 +231,17 @@ $conn->close();
       flex-shrink: 0;
       justify-content: center;
       align-items: center;
-      background: #f8fafc;
+      overflow: hidden;
+      background: #f0f0f0;
     }
 
     .portfolio-item .swiper-slide img {
       display: block;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
-      border-radius: 10px;
+      border-radius: inherit;
       transition: transform 0.3s ease;
     }
 
@@ -330,9 +332,6 @@ $conn->close();
         font-size: 1.4rem;
       }
 
-      .portfolio-item .swiper {
-        height: 250px;
-      }
     }
 
     @media (max-width: 991px) {
@@ -351,9 +350,6 @@ $conn->close();
         font-size: 1.3rem;
       }
 
-      .portfolio-item .swiper {
-        height: 220px;
-      }
     }
 
     @media (max-width: 768px) {
@@ -397,9 +393,6 @@ $conn->close();
         font-size: 0.9rem;
       }
 
-      .portfolio-item .swiper {
-        height: 200px;
-      }
     }
 
     @media (max-width: 576px) {
@@ -468,9 +461,6 @@ $conn->close();
         font-size: 0.85rem;
       }
 
-      .portfolio-item .swiper {
-        height: 180px;
-      }
 
       .portfolio-item a {
         padding: 8px 16px;

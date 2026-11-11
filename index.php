@@ -660,7 +660,8 @@ if ($conn) { $conn->close(); }
     }
     .portfolio-item .swiper {
       width: 100%;
-      height: 280px;
+      height: auto;
+      aspect-ratio: 16 / 9;
       margin-bottom: 20px;
       border-radius: 10px;
       overflow: hidden;
@@ -669,17 +670,20 @@ if ($conn) { $conn->close(); }
     }
     .portfolio-item .swiper-slide {
       display: flex;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       justify-content: center;
       align-items: center;
-      background: #000;
+      background: #f0f0f0;
     }
     .portfolio-item .swiper-slide img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 10px;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: inherit;
       transition: transform 0.3s ease;
     }
     .portfolio-item .swiper-slide img:hover {
@@ -781,9 +785,6 @@ if ($conn) { $conn->close(); }
         min-width: 80%;
         padding: 12px;
         scroll-snap-align: start;
-      }
-      .portfolio-item .swiper {
-        height: 220px;
       }
       .portfolio-mobile-nav {
         position: absolute;
