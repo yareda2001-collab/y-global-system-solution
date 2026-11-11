@@ -216,16 +216,363 @@ if ($conn) { $conn->close(); }
       }
     }
     /* Service Details Image (Original) */
+    .services-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(242,245,255,0.96));
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      border-radius: 22px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+      padding: 18px 18px;
+      height: 100%;
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .service-feature {
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(99, 102, 241, 0.12);
+      border-radius: 16px;
+      padding: 12px 14px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .service-feature:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+    }
+
+    .service-feature strong {
+      color: #111827;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .service-feature p {
+      margin: 0;
+      color: #374151;
+      line-height: 1.5;
+      font-size: 0.94rem;
+    }
+
+    .services-image-wrap {
+      position: relative;
+      height: 100%;
+      min-height: 300px;
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      background: #f8fafc;
+    }
+
+    .services-img {
+      width: 100%;
+      height: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 26px;
+      display: block;
+    }
+
     @media (max-width: 768px) {
       .services-img {
-        max-height: 400px;
-        width: 100%;
+        max-height: 360px;
+      }
+      .services-card {
+        padding: 16px 14px;
       }
     }
     @media (max-width: 576px) {
       .services-img {
-        max-height: 300px;
-        width: 100%;
+        max-height: 260px;
+      }
+      .service-feature {
+        padding: 12px 12px;
+      }
+      .service-feature p {
+        font-size: 0.9rem;
+      }
+    }
+
+    #portfolio-details .portfolio-showcase {
+      position: relative;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 32px;
+      background: linear-gradient(140deg, #eaf3ff, #f7f2ff 55%, #e8faff);
+      box-shadow: 0 24px 60px rgba(15, 35, 65, 0.16);
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-slide {
+      position: relative;
+      height: clamp(300px, 38vw, 500px);
+      overflow: hidden;
+      border-radius: 24px;
+      background: #102a43;
+      isolation: isolate;
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-slide::after {
+      position: absolute;
+      z-index: 1;
+      inset: 30% 0 0;
+      background: linear-gradient(180deg, transparent, rgba(7, 18, 33, 0.82));
+      content: "";
+      pointer-events: none;
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-slide-active img {
+      transform: scale(1.025);
+    }
+
+    #portfolio-details .showcase-caption {
+      position: absolute;
+      z-index: 2;
+      right: 24px;
+      bottom: 28px;
+      left: 28px;
+      color: #fff;
+    }
+
+    #portfolio-details .showcase-caption span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      border-radius: 999px;
+      background: rgba(15, 33, 55, 0.36);
+      backdrop-filter: blur(10px);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    #portfolio-details .showcase-caption h3 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(1.7rem, 3.2vw, 2.8rem);
+      font-weight: 750;
+      letter-spacing: -0.035em;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.2);
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-pagination {
+      position: absolute;
+      z-index: 3;
+      right: 28px;
+      bottom: 34px;
+      left: auto;
+      display: flex;
+      width: auto;
+      align-items: center;
+      gap: 3px;
+      margin: 0;
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-pagination-bullet {
+      width: 9px;
+      height: 9px;
+      margin: 0 3px !important;
+      background: rgba(255, 255, 255, 0.65);
+      opacity: 1;
+      transition: width 0.25s ease, background 0.25s ease;
+    }
+
+    #portfolio-details .portfolio-showcase .swiper-pagination-bullet-active {
+      width: 26px;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    #portfolio-details .service-highlights {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(84, 150, 255, 0.15), transparent 38%),
+        linear-gradient(145deg, #fff, #f4f7ff);
+      box-shadow: 0 20px 48px rgba(15, 35, 65, 0.1);
+    }
+
+    #portfolio-details .service-highlights h3 {
+      margin: 0 0 7px;
+      padding: 0;
+      border: 0;
+      color: #102a43;
+      font-size: clamp(1.35rem, 2vw, 1.7rem);
+      letter-spacing: -0.025em;
+    }
+
+    #portfolio-details .service-highlights .service-intro {
+      margin: 0 0 20px;
+      color: #64748b;
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    #portfolio-details .service-highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    #portfolio-details .service-highlight {
+      display: flex;
+      min-height: 104px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid #e7edf7;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.88);
+      color: #1f2937;
+      font-size: 0.93rem;
+      font-weight: 700;
+      line-height: 1.35;
+      box-shadow: 0 8px 20px rgba(15, 35, 65, 0.045);
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    #portfolio-details .service-highlight:hover {
+      transform: translateY(-4px);
+      border-color: #bfdbfe;
+      box-shadow: 0 14px 26px rgba(37, 99, 235, 0.12);
+    }
+
+    #portfolio-details .service-highlight i {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(145deg, #e7efff, #f1eaff);
+      color: #4f46e5;
+      font-size: 1.15rem;
+    }
+
+    #portfolio-details .why-choose-us {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      margin-top: 18px;
+      padding: 17px 16px;
+      border: 1px solid rgba(99, 102, 241, 0.13);
+      border-radius: 17px;
+      background: linear-gradient(135deg, rgba(238, 242, 255, 0.9), rgba(255, 255, 255, 0.94));
+    }
+
+    #portfolio-details .why-choose-us > i {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+      place-items: center;
+      border-radius: 12px;
+      background: #e0e7ff;
+      color: #4f46e5;
+      font-size: 1.1rem;
+    }
+
+    #portfolio-details .why-choose-us h4 {
+      margin: 0 0 5px;
+      color: #102a43;
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    #portfolio-details .why-choose-us p {
+      margin: 0;
+      color: #526277;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 991px) {
+      #portfolio-details .service-highlights {
+        padding: 24px;
+      }
+
+      #portfolio-details .service-highlight {
+        min-height: 84px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 576px) {
+      #portfolio-details .portfolio-showcase {
+        padding: 7px;
+        border-radius: 25px;
+      }
+
+      #portfolio-details .portfolio-showcase .swiper-slide {
+        height: 300px;
+        border-radius: 19px;
+      }
+
+      #portfolio-details .showcase-caption {
+        right: 16px;
+        bottom: 20px;
+        left: 18px;
+      }
+
+      #portfolio-details .showcase-caption span {
+        margin-bottom: 7px;
+        padding: 6px 10px;
+        font-size: 0.66rem;
+      }
+
+      #portfolio-details .showcase-caption h3 {
+        font-size: 1.7rem;
+      }
+
+      #portfolio-details .portfolio-showcase .swiper-pagination {
+        right: 18px;
+        bottom: 25px;
+      }
+
+      #portfolio-details .service-highlights {
+        padding: 22px 18px;
+        border-radius: 22px;
+      }
+
+      #portfolio-details .service-highlight-grid {
+        gap: 9px;
+      }
+
+      #portfolio-details .service-highlight {
+        min-height: 66px;
+        gap: 9px;
+        padding: 10px;
+        font-size: 0.85rem;
+      }
+
+      #portfolio-details .service-highlight i {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+        font-size: 1rem;
       }
     }
 
@@ -562,20 +909,29 @@ if ($conn) { $conn->close(); }
     <!-- Service Details Section -->
     <section id="service-details" class="service-details section">
       <div class="container">
-        <div class="row gy-4">
+        <div class="row gy-4 align-items-center">
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="services-list">
-              <p><strong>Website Development:</strong> is the process of creating and maintaining websites. It includes both front end and back end developmet.</p>
-              <p><strong>Front-End Development:</strong> This focuses on the user-facing aspects of a website.</p>
-              <p><strong>Back-End Development:</strong> This involves the server-side technologies and logic that power the functionality and data management of a website.</p>
-              <p><strong>Full-Stack Development:</strong> includes both front-end and back-end development.</p>
-              <p><strong>Web Design:</strong> This encompasses the visual design and user experience of a website, including layout, color schemes, typography, and graphics.</p>
-              <p><strong>Web Hosting and Deployment:</strong> The process of making a website accessible on the internet.</p>
-              <p><strong>Uses Of Websites:</strong> Websites are the powerful tools for promotion and advertisement for needs of both individuals and large organizations.</p>
+            <div class="services-card">
+              <div class="services-list">
+                <div class="service-feature">
+                  <p><strong>Website Development:</strong> is the process of creating and maintaining websites. It includes both front end and back end developmet.</p>
+                </div>
+                <div class="service-feature">
+                  <p><strong>Front-End Development:</strong> This focuses on the user-facing aspects of a website.</p>
+                </div>
+                <div class="service-feature">
+                  <p><strong>Back-End Development:</strong> This involves the server-side technologies and logic that power the functionality and data management of a website.</p>
+                </div>
+                <div class="service-feature">
+                  <p><strong>Full-Stack Development:</strong> includes both front-end and back-end development.</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <img src="assets/img/web.jpg" alt="" class="img-fluid services-img" style="width: 100%; height: auto; max-height: 700px;">
+            <div class="services-image-wrap">
+              <img src="assets/img/web.jpg" alt="Web development and design showcase" class="img-fluid services-img">
+            </div>
           </div>
         </div>
       </div>
@@ -588,7 +944,7 @@ if ($conn) { $conn->close(); }
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="row gy-4">
           <div class="col-lg-8">
-            <div class="portfolio-details-slider swiper init-swiper">
+            <div class="portfolio-details-slider portfolio-showcase swiper init-swiper">
               <script type="application/json" class="swiper-config">
                 {
                   "loop": true,
@@ -606,34 +962,54 @@ if ($conn) { $conn->close(); }
               </script>
               <div class="swiper-wrapper align-items-center">
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/web.png" alt="">
+                  <img src="assets/img/portfolio/web.png" alt="Website design and development workspace">
+                  <div class="showcase-caption">
+                    <span><i class="bi bi-code-slash" aria-hidden="true"></i> Digital Experiences</span>
+                    <h3>Website Design</h3>
+                  </div>
                 </div>
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/graphics.png" alt="">
+                  <img src="assets/img/portfolio/graphics.png" alt="Creative graphic design workspace">
+                  <div class="showcase-caption">
+                    <span><i class="bi bi-brush" aria-hidden="true"></i> Creative Studio</span>
+                    <h3>Graphic Design</h3>
+                  </div>
                 </div>
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/video.png" alt="">
+                  <img src="assets/img/portfolio/video.png" alt="Video editing and production workspace">
+                  <div class="showcase-caption">
+                    <span><i class="bi bi-camera-video" aria-hidden="true"></i> Visual Stories</span>
+                    <h3>Video Editing</h3>
+                  </div>
                 </div>
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio/logo.png" alt="">
+                  <img src="assets/img/portfolio/logo.png" alt="Logo concept and brand identity design">
+                  <div class="showcase-caption">
+                    <span><i class="bi bi-vector-pen" aria-hidden="true"></i> Brand Identity</span>
+                    <h3>Logo Design</h3>
+                  </div>
                 </div>
               </div>
               <div class="swiper-pagination"></div>
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+            <div class="portfolio-info service-highlights" data-aos="fade-up" data-aos-delay="200">
               <h3>Our Service Highlights</h3>
-              <ul>
-                <li><strong>WEBSITE DESIGNIND</strong>: FULLSTUCK WEBSITE</li>
-                <li><strong>GRAPHICS DESIGNING</strong>: BEST DESIGN</li>
-                <li><strong>VIDEO EDITING</strong>: BEST EDITION</li>
-                <li><strong>LOGO DESIGNING</strong>: BEST DESIGNING</li>
-                <li><p>These are the key service highlights we are proud to offer our clients. We are always ready to work with you and welcome the opportunity to discuss your specific needs.</p></li>
-                <li><p>We are happy to make your dream real and to be part of your success. We are committed to helping you achieve your goals, and we encourage you to reach out to us to explore how we can collaborate to make your dreams a reality.</p></li>
-                <li><h3>Why Choose Us?</h3></li>
-                <li><p>We’re dedicated to turning your ideas into reality with a strong focus on usability and performance, so your website works effortlessly for you and your customers.</p></li>
-              </ul>
+              <p class="service-intro">Creative solutions, thoughtfully made for your brand.</p>
+              <div class="service-highlight-grid">
+                <div class="service-highlight"><i class="bi bi-code-slash" aria-hidden="true"></i><span>Website Design</span></div>
+                <div class="service-highlight"><i class="bi bi-brush" aria-hidden="true"></i><span>Graphic Design</span></div>
+                <div class="service-highlight"><i class="bi bi-camera-video" aria-hidden="true"></i><span>Video Editing</span></div>
+                <div class="service-highlight"><i class="bi bi-vector-pen" aria-hidden="true"></i><span>Logo Design</span></div>
+              </div>
+              <div class="why-choose-us">
+                <i class="bi bi-stars" aria-hidden="true"></i>
+                <div>
+                  <h4>Why Choose Us?</h4>
+                  <p>We turn your ideas into reliable, user-friendly websites that perform smoothly for you and your customers.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

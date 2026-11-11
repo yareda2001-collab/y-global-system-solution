@@ -43,6 +43,16 @@ possible.
 
 ### PHP hosting
 
+The admin area can use a separate hosting database configuration through
+`admin/connect1.php`. Set `APP_DB_PROFILE=hosting` and provide `HOSTING_DB_HOST`,
+`HOSTING_DB_NAME`, `HOSTING_DB_USER`, and `HOSTING_DB_PASS` through the host's
+protected environment-variable settings. Other application connections still
+use `LOCAL_DB_HOST`, `LOCAL_DB_NAME`, `LOCAL_DB_USER`, and `LOCAL_DB_PASS`.
+Keep actual values out of the repository and do not upload `.env`. If the
+hosting plan does not support protected environment variables, use a
+provider-supported private configuration file stored outside the public web
+root; do not put credentials in a tracked file.
+
 Configure `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`,
 `APP_DB_HOST`, `APP_DB_NAME`, `APP_DB_USER`, `APP_DB_PASS`, `ADMIN_DB_*`, and
 `LOCAL_DB_*` in the hosting provider's environment-variable or secrets settings.

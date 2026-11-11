@@ -1,23 +1,32 @@
 <?php
 require_once __DIR__ . '/../includes/load-env.php';
 
-$servername = getenv('LOCAL_DB_HOST');
-$username = getenv('LOCAL_DB_USER');
-$password = getenv('LOCAL_DB_PASS');
-$database = getenv('LOCAL_DB_NAME');
+$connectionProfile = getenv('APP_DB_PROFILE') ?: 'local';
+if ($connectionProfile === 'hosting') {
+    require __DIR__ . '/connect1.php';
+} elseif ($connectionProfile === 'local') {
+    $servername = getenv('LOCAL_DB_HOST');
+    $username = getenv('LOCAL_DB_USER');
+    $password = getenv('LOCAL_DB_PASS');
+    $database = getenv('LOCAL_DB_NAME');
 
-$conn = null;
-$db_config_error = null;
+    $conn = null;
+    $db_config_error = null;
 
-if ($servername === false || $username === false || $password === false || $database === false) {
-    $db_config_error = 'Database configuration is incomplete. Set the LOCAL_DB_* values in your local .env file.';
-    error_log($db_config_error);
-} else {
-    $conn = mysqli_connect($servername, $username, $password, $database);
-    if (!$conn) {
-        $db_config_error = 'Database connection failed: ' . mysqli_connect_error();
+    if ($servername === false || $username === false || $password === false || $database === false) {
+        $db_config_error = 'Database configuration is incomplete. Set the LOCAL_DB_* values in your local .env file.';
         error_log($db_config_error);
+    } else {
+        $conn = mysqli_connect($servername, $username, $password, $database);
+        if (!$conn) {
+            $db_config_error = 'Database connection failed.';
+            error_log('Local database connection failed: ' . mysqli_connect_error());
+        }
     }
+} else {
+    $conn = null;
+    $db_config_error = 'Database profile is invalid. Set APP_DB_PROFILE to local or hosting.';
+    error_log($db_config_error);
 }
 
 if (session_status() === PHP_SESSION_NONE) {
