@@ -361,8 +361,12 @@ ob_end_flush(); // End output buffering
             font-size: 0.82rem;
         }
         @media (max-width: 576px) {
+            .reset-section {
+                padding: 16px 0 20px;
+            }
             .reset-container {
-                margin: 1rem;
+                width: calc(100% - 32px);
+                margin: 0 auto;
                 padding: 1.25rem;
             }
             .reset-actions {

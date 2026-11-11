@@ -58,10 +58,10 @@ if ($conn) { $conn->close(); }
       width: 100%;
       z-index: 1000;
     }
-    /* Remove padding-top from main to eliminate white space */
+    /* Keep page content below the fixed header at every viewport size. */
     .main {
       margin-top: 0;
-      padding-top: 0;
+      padding-top: 78px;
     }
     /* Ensure content after carousel has proper spacing */
     .parallax {
@@ -176,6 +176,9 @@ if ($conn) { $conn->close(); }
                                  
     /* Responsive Adjustments */
     @media (max-width: 991px) {
+      .main {
+        padding-top: 88px;
+      }
       .navmenu ul li a {
         color: black;
       }
@@ -218,7 +221,12 @@ if ($conn) { $conn->close(); }
       }
       .parallax1,
       .parallax2 {
-        min-height: 350px !important; /* Forced 300px height on small and minimized devices */
+        min-height: 0 !important;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        background-attachment: scroll;
+        background-position: center;
+        background-size: 100% 100%;
       }
       .parallax2 {
         width: calc(100% - 28px);
