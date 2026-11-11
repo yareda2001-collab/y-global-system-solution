@@ -119,13 +119,13 @@ if ($conn) { $conn->close(); }
     /* Homepage image carousel */
     #demo {
       overflow: hidden;
-      border-radius: 30px;
+      border-radius: 0;
       box-shadow: 0 20px 48px rgba(15, 35, 65, 0.16);
     }
     #demo .carousel-inner,
     #demo .carousel-item,
     #demo .carousel-item img {
-      border-radius: inherit;
+      border-radius: 0;
     }
     #demo .carousel-item img {
       display: block;
@@ -247,47 +247,95 @@ if ($conn) { $conn->close(); }
       }
     }
     /* Service Details Image (Original) */
-    .services-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.96), rgba(242,245,255,0.96));
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      border-radius: 22px;
-      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
-      padding: 18px 18px;
-      height: 100%;
-    }
-
-    .services-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+    .service-feature-list {
       margin: 0;
     }
 
     .service-feature {
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(99, 102, 241, 0.12);
-      border-radius: 16px;
-      padding: 12px 14px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 11px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 7px 18px rgba(15, 35, 65, 0.045);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .service-feature:last-child {
+      margin-bottom: 0;
     }
 
     .service-feature:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 12px 24px rgba(15, 35, 65, 0.09);
     }
 
-    .service-feature strong {
-      color: #111827;
-      display: inline-block;
-      margin-bottom: 4px;
+    .service-feature:nth-child(1) {
+      border-color: #d7ecf8;
+      background: linear-gradient(120deg, #f0f9ff, #fff 80%);
+    }
+
+    .service-feature:nth-child(2) {
+      border-color: #d7eee3;
+      background: linear-gradient(120deg, #f0fdf7, #fff 80%);
+    }
+
+    .service-feature:nth-child(3) {
+      border-color: #f3e2d4;
+      background: linear-gradient(120deg, #fff8f1, #fff 80%);
+    }
+
+    .service-feature:nth-child(4) {
+      border-color: #e6ddf7;
+      background: linear-gradient(120deg, #f8f5ff, #fff 80%);
     }
 
     .service-feature p {
       margin: 0;
-      color: #374151;
-      line-height: 1.5;
-      font-size: 0.94rem;
+      color: #526277;
+      line-height: 1.55;
+      font-size: 0.91rem;
+    }
+
+    .service-feature strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #102a43;
+      font-size: 0.98rem;
+      font-weight: 750;
+    }
+
+    .service-feature-icon {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      place-items: center;
+      border-radius: 50%;
+      font-size: 1.1rem;
+    }
+
+    .service-feature:nth-child(1) .service-feature-icon {
+      background: #e6f4ff;
+      color: #1682b5;
+    }
+
+    .service-feature:nth-child(2) .service-feature-icon {
+      background: #ecfdf5;
+      color: #15946a;
+    }
+
+    .service-feature:nth-child(3) .service-feature-icon {
+      background: #fff3e8;
+      color: #d97728;
+    }
+
+    .service-feature:nth-child(4) .service-feature-icon {
+      background: #f2edff;
+      color: #7652c8;
     }
 
     .services-image-wrap {
@@ -300,10 +348,11 @@ if ($conn) { $conn->close(); }
       background: #f8fafc;
     }
 
-    .services-img {
+    #service-details .services-img {
       width: 100%;
       height: 100%;
       max-height: 500px;
+      margin: 0;
       object-fit: cover;
       border-radius: 26px;
       display: block;
@@ -313,16 +362,19 @@ if ($conn) { $conn->close(); }
       .services-img {
         max-height: 360px;
       }
-      .services-card {
-        padding: 16px 14px;
+      .service-feature {
+        gap: 12px;
+        padding: 13px;
       }
     }
     @media (max-width: 576px) {
       .services-img {
         max-height: 260px;
       }
-      .service-feature {
-        padding: 12px 12px;
+      .service-feature-icon {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
       }
       .service-feature p {
         font-size: 0.9rem;
@@ -944,26 +996,28 @@ if ($conn) { $conn->close(); }
       <div class="container">
         <div class="row gy-4 align-items-center">
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="services-card">
-              <div class="services-list">
-                <div class="service-feature">
-                  <p><strong>Website Development:</strong> is the process of creating and maintaining websites. It includes both front end and back end developmet.</p>
-                </div>
-                <div class="service-feature">
-                  <p><strong>Front-End Development:</strong> This focuses on the user-facing aspects of a website.</p>
-                </div>
-                <div class="service-feature">
-                  <p><strong>Back-End Development:</strong> This involves the server-side technologies and logic that power the functionality and data management of a website.</p>
-                </div>
-                <div class="service-feature">
-                  <p><strong>Full-Stack Development:</strong> includes both front-end and back-end development.</p>
-                </div>
+            <div class="service-feature-list">
+              <div class="service-feature">
+                <span class="service-feature-icon"><i class="bi bi-globe2" aria-hidden="true"></i></span>
+                <p><strong>Website Development</strong>Creating and maintaining websites across both front-end and back-end development.</p>
+              </div>
+              <div class="service-feature">
+                <span class="service-feature-icon"><i class="bi bi-window" aria-hidden="true"></i></span>
+                <p><strong>Front-End Development</strong>Building the user-facing parts of a website with clear design and smooth interactions.</p>
+              </div>
+              <div class="service-feature">
+                <span class="service-feature-icon"><i class="bi bi-hdd-stack" aria-hidden="true"></i></span>
+                <p><strong>Back-End Development</strong>Creating the server-side logic and data management that power website functionality.</p>
+              </div>
+              <div class="service-feature">
+                <span class="service-feature-icon"><i class="bi bi-layers" aria-hidden="true"></i></span>
+                <p><strong>Full-Stack Development</strong>Combining front-end and back-end skills to build complete web solutions.</p>
               </div>
             </div>
           </div>
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <div class="services-image-wrap">
-              <img src="assets/img/web.jpg" alt="Web development and design showcase" class="img-fluid services-img">
+              <img src="assets/img/website.png" alt="Web development and design showcase" class="img-fluid services-img">
             </div>
           </div>
         </div>
