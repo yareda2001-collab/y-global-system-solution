@@ -116,8 +116,22 @@ if ($conn) { $conn->close(); }
     .navmenu ul li a[href="login.php"]:hover::before {
       left: 100%;
     }
-    /* Carousel Styling (Original) */
-    .carousel-inner img {
+    /* Homepage image carousel */
+    #demo {
+      overflow: hidden;
+      border-radius: 30px;
+      box-shadow: 0 20px 48px rgba(15, 35, 65, 0.16);
+    }
+    #demo .carousel-inner,
+    #demo .carousel-item,
+    #demo .carousel-item img {
+      border-radius: inherit;
+    }
+    #demo .carousel-item img {
+      display: block;
+      object-fit: cover;
+    }
+    #demo .carousel-inner img {
       height: 590px;
     }
     /* Parallax Section */
@@ -140,6 +154,10 @@ if ($conn) { $conn->close(); }
     }
     .parallax2 {
       background-image: url('assets/img/webdevelopment.png');
+      width: calc(100% - 48px);
+      margin: 24px auto;
+      border-radius: 24px;
+      box-shadow: 0 12px 32px rgba(15, 35, 65, 0.12);
     }
     .parallax1 .page-title {
       max-width: 90%;
@@ -169,7 +187,7 @@ if ($conn) { $conn->close(); }
         display: inline-block;
         margin: 5px auto;
       }
-      .carousel-inner img {
+      #demo .carousel-inner img {
         height: 400px;
       }
       .parallax1,
@@ -195,12 +213,17 @@ if ($conn) { $conn->close(); }
         padding: 8px 12px;
         font-size: 0.9rem;
       }
-      .carousel-inner img {
+      #demo .carousel-inner img {
         height: 300px;
       }
       .parallax1,
       .parallax2 {
         min-height: 350px !important; /* Forced 300px height on small and minimized devices */
+      }
+      .parallax2 {
+        width: calc(100% - 28px);
+        margin: 18px auto;
+        border-radius: 18px;
       }
       .parallax1 .page-title {
         max-width: 100%;
@@ -311,7 +334,7 @@ if ($conn) { $conn->close(); }
       position: relative;
       height: clamp(300px, 38vw, 500px);
       overflow: hidden;
-      border-radius: 24px;
+      border-radius: 30px;
       background: #102a43;
       isolation: isolate;
     }
@@ -330,6 +353,7 @@ if ($conn) { $conn->close(); }
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: inherit;
       transition: transform 0.7s ease;
     }
 
@@ -528,7 +552,7 @@ if ($conn) { $conn->close(); }
 
       #portfolio-details .portfolio-showcase .swiper-slide {
         height: 300px;
-        border-radius: 19px;
+        border-radius: 23px;
       }
 
       #portfolio-details .showcase-caption {
